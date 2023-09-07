@@ -8,6 +8,11 @@
 </head>
 <body>
     <center>
+        @if(session('message'))
+        <div class="alert alert-success">
+            {{session('message')}}
+        </div>
+        @endif
     <h1>Register</h1>
     <form action="register" method="post">
         @csrf
@@ -22,6 +27,12 @@
         </label>
         <br><br><input type="submit" name="submit" value="Submit">
     </form>
+    <a href="login">
+        <button>
+            Login
+        </button>
+    </a>
+
     </center>
 </body>
 </html>

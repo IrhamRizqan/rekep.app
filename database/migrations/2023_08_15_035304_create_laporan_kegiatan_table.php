@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('jurusan_id');
-            $table->longText('uraian_kegiatan');
+            $table->date('tanggal');
+            $table->string('hari');
+            $table->tinyInteger('minggu_ke');
+            $table->string('kegiatan_kerja_harian');
+            $table->longText('catatan_pembimbing');
+            $table->string('lampiran');
             $table->boolean('status_laporan');
             $table->timestamps();
 

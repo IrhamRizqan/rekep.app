@@ -1,10 +1,10 @@
 <center>
     <div class="w-50 center border rounded px-3 py-3 mx-auto">
         <h1>Login</h1>
-        @if ($message = Session::get('success'))
-            <div class="alert alert-info">
-                {{$message}}
-            </div>
+        @if(session('error'))
+        <div class="alert alert-danger">
+            <b>Tunggu, ada yang salah.</b> {{session('error')}}
+        </div>
         @endif
         <form action="login" method="POST">
             @csrf

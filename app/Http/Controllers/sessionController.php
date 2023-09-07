@@ -16,49 +16,44 @@ class sessionController extends Controller
     function register(){
         return view ('auth/register');
     }
-    function validateRegister(Request $request){
-        $request->validate([
-            'name'  =>  'required',
-            'email' =>  'required|email|unique:users',
-            'password'  => 'required|min:3'
+
+    public function actionregister(Request $request)
+    {
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        $data = $request->all();
-
-        User::create([
-            'name'  => $data['name'],
-            'email' => $data['email'],
-            'password'  =>  Hash::make($data['password'])
-        ]);
-
-        return redirect('login')->with('success', 'Your data inserted to database, try to login using your credentials');
+        Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan email dan password.');
+        return redirect('register');
     }
-    function login(){
-        return view('auth/login');
-    }
-    function processLogin(Request $request){
-        Session::flash('email', $request->email);
-        $request->validate([
-            'email'=>'required',
-            'password'=>'required'
-        ], [
-            'email.required'=>'Email Wajib di isi',
-            'password.required'=>'Password Wajib di isi'
-        ]);
 
-        $cred = [
-            "email" => $request->email,
-            "password" => $request->password
+    public function login()
+    {
+        if (Auth::check()) {
+            return redirect('dashboard');
+        }else{
+            return view('auth/login');
+        }
+    }
+    public function actionlogin(Request $request)
+    {
+        $data = [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
         ];
 
-        if(Auth::attempt($cred)){
-            return redirect('../menu');
-        } else{
-            return redirect('login')->withErrors("Perhatikan username dan Password");
+        if (Auth::Attempt($data)) {
+            return redirect('dashboard');
+        }else{
+            Session::flash('error', 'Email atau Password Salah');
+            return redirect('login');
         }
     }
 
-    function logout(){
+    public function actionlogout()
+    {
         Auth::logout();
         return redirect('login');
     }
