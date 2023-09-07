@@ -7,6 +7,11 @@
     <title>Dashboard</title>
 </head>
 <body>
+    <a href="/">
+        <button>
+            Main Welcome
+        </button>
+    </a>
     <table border="2">
         <th>Tanggal</th>
         <th>Hari</th>
