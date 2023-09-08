@@ -13,19 +13,16 @@ return new class extends Migration
     {
         Schema::create('laporan_kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('siswa_id');
-            $table->unsignedBigInteger('jurusan_id');
+            $table->bigInteger('user_id')->unsigned()->index()->nullable();
             $table->date('tanggal');
             $table->string('hari');
             $table->tinyInteger('minggu_ke');
             $table->string('kegiatan_kerja_harian');
-            $table->longText('catatan_pembimbing');
-            $table->string('lampiran');
-            $table->boolean('status_laporan');
+            $table->longText('catatan_pembimbing')->nullable();
+            $table->boolean('status_laporan')->nullable();
             $table->timestamps();
 
-            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
-            $table->foreign('jurusan_id')->references('id')->on('jurusan')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

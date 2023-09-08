@@ -13,18 +13,20 @@ return new class extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->integer('nis');
+            $table->integer('nis')->unique();
             $table->integer('kelas');
             $table->string('nama');
             $table->string('username');
             $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
+
 
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migration
      */
     public function down(): void
     {
